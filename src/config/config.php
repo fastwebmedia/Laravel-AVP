@@ -5,7 +5,7 @@ return array(
 	/**
 	 * The URI of the agegate
 	 */
-	'agegate_uri' => 'agegate',
+	'agegate_uri' => 'check',
 
 	/**
 	 * The minimum age to access the site
@@ -17,7 +17,7 @@ return array(
 	 * "date" for html5 <input type="date" />
 	 * "select" for 3 <select> tags for day, month and year
 	 */
-	'input_type' => 'select',
+	'input_type' => 'date',
 
 	/**
 	 * The name of the cookie to set. Change this to whatever you want
@@ -27,12 +27,12 @@ return array(
 	/**
 	 * The value of the cookie to set. Change this to something unique
 	 */
-	'cookie_val' => 'hell yeah!',
+	'cookie_val' => 'validated',
 
 	/**
 	 * The age of the cookie to set. Options are 'forever', an integer (minutes) or the default is for the session
 	 */
-	'cookie_age' => 'forever',
+	'cookie_age' => '3600',
 
 	/**
 	 * Determines whether the user can try again or not

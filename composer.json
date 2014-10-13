@@ -1,12 +1,12 @@
 {
-    "name": "fbf/laravel-agegate",
+    "name": "fastwebmedia/laravel-agegate",
     "description": "A Laravel 4 package for adding an agegate to a site",
     "tags": ["laravel","agegate"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Neil Crookes",
-            "email": "neil.crookes@fivebyfiveuk.com"
+            "name": "Fast Web Media Ltd",
+            "email": "packages@fastweb.media"
         }
     ],
     "require": {
@@ -19,7 +19,7 @@
             "src/controllers"
         ],
         "psr-0": {
-            "Fbf\\LaravelAgegate": "src/"
+            "FWM\\LaravelAgegate": "src/"
         }
     },
     "minimum-stability": "dev"

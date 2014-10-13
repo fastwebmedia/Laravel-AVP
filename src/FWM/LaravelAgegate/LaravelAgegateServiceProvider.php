@@ -1,4 +1,4 @@
-<?php namespace Fbf\LaravelAgegate;
+<?php namespace FWM\LaravelAgegate;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -18,7 +18,7 @@ class LaravelAgegateServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('fbf/laravel-agegate');
+		$this->package('fwm/laravel-agegate');
 
     	include __DIR__.'/../../filter.php';
     	include __DIR__.'/../../macros.php';

@@ -1,4 +1,4 @@
-<?php namespace Fbf\LaravelAgegate;
+<?php namespace FWM\LaravelAgegate;
 
 use \Carbon\Carbon;
 
@@ -33,7 +33,7 @@ class AgegateController extends \BaseController {
 		$previousTooYoung = \Session::get('laravel-agegate.previous_too_young');
 		if ($previousTooYoung)
 		{
-			return \Redirect::action('Fbf\LaravelAgegate\AgegateController@agegate');
+			return \Redirect::action('FWM\LaravelAgegate\AgegateController@agegate');
 		}
 		// Get the date of birth that the user submitted
 		$dob = null;
@@ -67,7 +67,7 @@ class AgegateController extends \BaseController {
 			{
 				\Session::keep('url.intended');
 			}
-		    return \Redirect::action('Fbf\LaravelAgegate\AgegateController@agegate')->withErrors($validator)->withInput();
+		    return \Redirect::action('FWM\LaravelAgegate\AgegateController@agegate')->withErrors($validator)->withInput();
 		}
 
 		if (\Config::get('laravel-agegate::cookie_age') == 'forever')

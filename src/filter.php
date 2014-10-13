@@ -1,4 +1,4 @@
-<?php namespace Fbf\LaravelAgegate;
+<?php namespace FWM\LaravelAgegate;
 
 /**
  * Class LaravelAgegateFilter
