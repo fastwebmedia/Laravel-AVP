@@ -12,6 +12,8 @@ class AVPController extends \BaseController {
 		$previousTooYoung = \Session::get('laravel-avp.previous_too_young');
 		$view = \View::make(\Config::get('laravel-avp::view'))
 			->with(compact('previousTooYoung'));
+		
+
 		if (!\Session::has('errors') && $previousTooYoung)
 		{
 			$messages = \Lang::get('laravel-avp::validation.custom');
@@ -59,7 +61,12 @@ class AVPController extends \BaseController {
 			$failed = $validator->failed();
 			$validExceptTooYoung = array_get($failed, 'dob.Before');
 			$canTryAgain = \Config::get('laravel-avp::can_try_again');
-			if ($validExceptTooYoung && ! $canTryAgain)
+
+			if ($validExceptTooYoung && \Config::get('laravel-avp:redirect_on_error'))
+			{
+				\Redirect::to(\Config::get('laravel-avp:redirect_url'));
+			}
+			else if ($validExceptTooYoung && ! $canTryAgain)
 			{
 				\Session::put('laravel-avp.previous_too_young', true);
 			}
