@@ -62,9 +62,12 @@ class AVPController extends \BaseController {
 			$validExceptTooYoung = array_get($failed, 'dob.Before');
 			$canTryAgain = \Config::get('laravel-avp::can_try_again');
 
-			if ($validExceptTooYoung && \Config::get('laravel-avp:redirect_on_error'))
+			$toRedirect = \Config::get('laravel-avp::redirect_on_error');
+        		$redirectURL = \Config::get('laravel-avp::redirect_url');
+
+        		if ($validExceptTooYoung && $toRedirect )
 			{
-				\Redirect::to(\Config::get('laravel-avp:redirect_url'));
+				return \Redirect::to($redirectURL);
 			}
 			else if ($validExceptTooYoung && ! $canTryAgain)
 			{

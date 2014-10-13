@@ -25,10 +25,10 @@ return array(
 	'cookie_name' => 'age_ok',
 
 	/**
-         * The URL to redirect to on failure
-         */
-        'redirect_on_error' => true,
-	'redirect_url' => "http://www.drinkaware.co.uk",
+	 * The URL to redirect to on failure
+	*/
+	'redirect_on_error' => true,
+	'redirect_url' => "http://www.drinkaware.co.uk/why-am-i-here",
 
 	/**
 	 * The value of the cookie to set. Change this to something unique
