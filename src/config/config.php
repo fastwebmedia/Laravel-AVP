@@ -8,9 +8,10 @@ return array(
 	'agegate_uri' => 'check',
 
 	/**
-	 * The minimum age to access the site
+	 * The minimum and maximum age to access the site
 	 */
 	'minimum_age' => 18,
+        'maximum_age' => 114,
 
 	/**
 	 * The input type to use. Choices are:
