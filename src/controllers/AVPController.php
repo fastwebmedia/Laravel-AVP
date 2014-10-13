@@ -1,20 +1,20 @@
-<?php namespace FWM\LaravelAgegate;
+<?php namespace FWM\LaravelAVP;
 
 use \Carbon\Carbon;
 
-class AgegateController extends \BaseController {
+class AVPController extends \BaseController {
 
 	/**
 	 * Renders the age gate view
 	 */
 	public function agegate()
 	{
-		$previousTooYoung = \Session::get('laravel-agegate.previous_too_young');
-		$view = \View::make(\Config::get('laravel-agegate::view'))
+		$previousTooYoung = \Session::get('laravel-avp.previous_too_young');
+		$view = \View::make(\Config::get('laravel-avp::view'))
 			->with(compact('previousTooYoung'));
 		if (!\Session::has('errors') && $previousTooYoung)
 		{
-			$messages = \Lang::get('laravel-agegate::validation.custom');
+			$messages = \Lang::get('laravel-avp::validation.custom');
 			$errorMsg = $messages['dob.previous'];
 			$view->withErrors(array('dob' => array($errorMsg)));
 		}
@@ -30,10 +30,10 @@ class AgegateController extends \BaseController {
 	 */
 	public function doAgegate()
 	{
-		$previousTooYoung = \Session::get('laravel-agegate.previous_too_young');
+		$previousTooYoung = \Session::get('laravel-avp.previous_too_young');
 		if ($previousTooYoung)
 		{
-			return \Redirect::action('FWM\LaravelAgegate\AgegateController@agegate');
+			return \Redirect::action('FWM\LaravelAVP\AVPController@agegate');
 		}
 		// Get the date of birth that the user submitted
 		$dob = null;
@@ -46,44 +46,44 @@ class AgegateController extends \BaseController {
 			$dob = \Input::get('dob_year').'-'.\Input::get('dob_month').'-'.\Input::get('dob_day');
 		}
 
-		$maxDob = Carbon::now()->subYears(\Config::get('laravel-agegate::minimum_age'))->addDay()->toDateString();
+		$maxDob = Carbon::now()->subYears(\Config::get('laravel-avp::minimum_age'))->addDay()->toDateString();
 
 		$validator = \Validator::make(
 		    array('dob' => $dob),
 		    array('dob' => 'required|date|date_format:Y-m-d|before:'.$maxDob),
-			\Lang::get('laravel-agegate::validation.custom')
+			\Lang::get('laravel-avp::validation.custom')
 		);
 
 		if ($validator->fails())
 		{
 			$failed = $validator->failed();
 			$validExceptTooYoung = array_get($failed, 'dob.Before');
-			$canTryAgain = \Config::get('laravel-agegate::can_try_again');
+			$canTryAgain = \Config::get('laravel-avp::can_try_again');
 			if ($validExceptTooYoung && ! $canTryAgain)
 			{
-				\Session::put('laravel-agegate.previous_too_young', true);
+				\Session::put('laravel-avp.previous_too_young', true);
 			}
 			else
 			{
 				\Session::keep('url.intended');
 			}
-		    return \Redirect::action('FWM\LaravelAgegate\AgegateController@agegate')->withErrors($validator)->withInput();
+		    return \Redirect::action('FWM\LaravelAVP\AVPController@agegate')->withErrors($validator)->withInput();
 		}
 
-		if (\Config::get('laravel-agegate::cookie_age') == 'forever')
+		if (\Config::get('laravel-avp::cookie_age') == 'forever')
 		{
 			// Set a forever cookie saying the user is old enough
-			$cookie = \Cookie::forever(\Config::get('laravel-agegate::cookie_name'), \Config::get('laravel-agegate::cookie_val'));
+			$cookie = \Cookie::forever(\Config::get('laravel-avp::cookie_name'), \Config::get('laravel-avp::cookie_val'));
 		}
-		elseif (is_int(\Config::get('laravel-agegate::cookie_age')))
+		elseif (is_int(\Config::get('laravel-avp::cookie_age')))
 		{
 			// Sets a cookie lasting X minutes saying the user is old enough
-			Cookie::make(\Config::get('laravel-agegate::cookie_name'), \Config::get('laravel-agegate::cookie_val'), \Config::get('laravel-agegate::cookie_age'));
+			Cookie::make(\Config::get('laravel-avp::cookie_name'), \Config::get('laravel-avp::cookie_val'), \Config::get('laravel-avp::cookie_age'));
 		}
 		else
 		{
 			// Sets a session cookie saying the user is old enough
-			$cookie = \Cookie::make(\Config::get('laravel-agegate::cookie_name'), \Config::get('laravel-agegate::cookie_val'));
+			$cookie = \Cookie::make(\Config::get('laravel-avp::cookie_name'), \Config::get('laravel-avp::cookie_val'));
 		}
 		return \Redirect::intended('/')->withCookie($cookie);
 	}

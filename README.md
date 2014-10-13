@@ -1,4 +1,4 @@
-Laravel-Agegate
+Laravel-AVP
 ===============
 
 A Laravel 4 package for adding an age gate to a site
@@ -16,7 +16,7 @@ A Laravel 4 package for adding an age gate to a site
 
 Add the following to you composer.json file
 
-    "fastwebmedia/laravel-agegate": "dev-master"
+    "fastwebmedia/laravel-avp": "dev-master"
 
 Run
 
@@ -24,11 +24,11 @@ Run
 
 Add the following to app/config/app.php
 
-    'FWM\LaravelAgegate\LaravelAgegateServiceProvider'
+    'FWM\LaravelAVP\LaravelAVPServiceProvider'
 
 Publish the config
 
-    php artisan config:publish fastwebmedia/laravel-agegate
+    php artisan config:publish fastwebmedia/laravel-avp
 
 ## Configuration
 
@@ -62,9 +62,9 @@ Determines whether the user can try again, if they entered a dob that makes them
 
 	'can_try_again' => false,
 
-The view that should be rendered for the agegate. You can use the bundled view, or specify your own and use @include('laravel-agegate::agegate') to get the agegate form and validation errors
+The view that should be rendered for the agegate. You can use the bundled view, or specify your own and use @include('laravel-avp::agegate') to get the agegate form and validation errors
 
-	'view' => 'laravel-agegate::agegate',
+	'view' => 'laravel-avp::agegate',
 
 The mode for allowed user agents (see section on Allowing bots etc below)
 
@@ -78,7 +78,7 @@ The strings for allowed user agents, for the mode = exact or mode = contains set
 
 Register the filter by adding the following to app/filters.php
 
-    Route::filter('agegate', 'FWM\LaravelAgegate\LaravelAgegateFilter');
+    Route::filter('agegate', 'FWM\LaravelAVP\LaravelAVPFilter');
 
 and apply it to the routes you want to protect by adding the following to app/routes.php
 
@@ -94,30 +94,30 @@ or
 You also need to add the agegate routes to your app/routes.php, for example:
 
     Route::get(
-    	Config::get('laravel-agegate::agegate_uri'),
-    	'FWM\LaravelAgegate\AgegateController@agegate'
+    	Config::get('laravel-avp::agegate_uri'),
+    	'FWM\LaravelAVP\AVPController@agegate'
 	);
 
 	Route::post(
-		Config::get('laravel-agegate::agegate_uri'),
+		Config::get('laravel-avp::agegate_uri'),
 		array(
 			'before' => 'csrf',
-			'uses' => 'FWM\LaravelAgegate\AgegateController@doAgegate'
+			'uses' => 'FWM\LaravelAVP\AVPController@doAgegate'
 		)
 	);
 
 If you are using route prefixes in combination with the agegate filter, you can do the following:
 
 	Route::get(
-	    Request::segment(1).'/'.Config::get('laravel-agegate::agegate_uri'),
-	    'FWM\LaravelAgegate\AgegateController@agegate'
+	    Request::segment(1).'/'.Config::get('laravel-avp::agegate_uri'),
+	    'FWM\LaravelAVP\AVPController@agegate'
 	);
 
 	Route::post(
-	    Request::segment(1).'/'.Config::get('laravel-agegate::agegate_uri'),
+	    Request::segment(1).'/'.Config::get('laravel-avp::agegate_uri'),
 	    array(
 	        'before' => 'csrf',
-	        'uses' => 'FWM\LaravelAgegate\AgegateController@doAgegate'
+	        'uses' => 'FWM\LaravelAVP\AVPController@doAgegate'
 	    )
 	);
 

@@ -25,6 +25,12 @@ return array(
 	'cookie_name' => 'age_ok',
 
 	/**
+         * The URL to redirect to on failure
+         */
+        'redirect_on_error' => true,
+	'redirect_url' => "http://www.drinkaware.co.uk",
+
+	/**
 	 * The value of the cookie to set. Change this to something unique
 	 */
 	'cookie_val' => 'validated',
@@ -43,7 +49,7 @@ return array(
 	 * The view that should be rendered for the agegate. You can use the bundled view, or specify your own and use
 	 * @include('laravel-agegate::agegate') to get the agegate form and validation errors
 	 */
-	'view' => 'laravel-agegate::agegate',
+	'view' => 'laravel-avp::avp',
 
 	/**
 	 *

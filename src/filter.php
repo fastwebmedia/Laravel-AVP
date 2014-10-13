@@ -1,11 +1,11 @@
-<?php namespace FWM\LaravelAgegate;
+<?php namespace FWM\LaravelAVP;
 
 /**
- * Class LaravelAgegateFilter
+ * Class LaravelAVPFilter
  *
- * A Laravel Agegate Filter
+ * A Laravel AVP Filter
  */
-class LaravelAgegateFilter {
+class LaravelAVPFilter {
 
 	public function filter()
 	{
@@ -30,14 +30,14 @@ class LaravelAgegateFilter {
 
 	public function isAgeCookieOK()
 	{
-		$cookieVal = \Cookie::get(\Config::get('laravel-agegate::cookie_name'));
-		$whatItShouldBe = \Config::get('laravel-agegate::cookie_val');
+		$cookieVal = \Cookie::get(\Config::get('laravel-avp::cookie_name'));
+		$whatItShouldBe = \Config::get('laravel-avp::cookie_val');
 		return $cookieVal == $whatItShouldBe;
 	}
 
 	public function isUserAgentAllowed()
 	{
-		$allowedUserAgentsMode = \Config::get('laravel-agegate::allowed_user_agents.mode');
+		$allowedUserAgentsMode = \Config::get('laravel-avp::allowed_user_agents.mode');
 		switch ($allowedUserAgentsMode) {
 			case 'phpbrowscap_crawler':
 				return $this->phpbrowscapIsCrawler();
@@ -77,7 +77,7 @@ class LaravelAgegateFilter {
 
 	public function getAllowedUserAgentStrings()
 	{
-		return \Config::get('laravel-agegate::allowed_user_agents.strings');
+		return \Config::get('laravel-avp::allowed_user_agents.strings');
 	}
 
 	public function getLowerUserAgent()
@@ -101,7 +101,7 @@ class LaravelAgegateFilter {
 
 	public function getAgeGateRedirect()
 	{
-	    return \Redirect::to(\Config::get('laravel-agegate::agegate_uri').'?'.$_SERVER['QUERY_STRING']);
+	    return \Redirect::to(\Config::get('laravel-avp::agegate_uri').'?'.$_SERVER['QUERY_STRING']);
 	}
 
 }

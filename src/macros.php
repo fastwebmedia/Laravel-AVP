@@ -2,7 +2,7 @@
 
 Form::macro('agegatedate', function($name, $value = null, $options = array())
 {
-	switch (Config::get('laravel-agegate::input_type')) {
+	switch (Config::get('laravel-avp::input_type')) {
 		case 'date':
 			if (array_key_exists($name, $value))
 			{
@@ -18,7 +18,7 @@ Form::macro('agegatedate', function($name, $value = null, $options = array())
 			$value = array_intersect_key($value, array_flip($names));
 			return Form::agegateselectsdate($name, $value, $options);
 		default:
-			throw new InvalidArgumentException('Invalid configuration option for laravel-agegate::input_type. Must be one of "date", "select"');
+			throw new InvalidArgumentException('Invalid configuration option for laravel-avp::input_type. Must be one of "date", "select"');
 	}
 });
 
@@ -60,7 +60,7 @@ Form::macro('agegateselectsdate', function($name, $value = null, $options = arra
 		switch ($component) {
 			case 'd':
 				$input .= '<select name="' . $name . '_day" class="' . $classPrefix . $name . '-day"'.($options['disabled'] ? ' disabled="disabled"' : '').'>';
-				$input .= '<option value="">'.trans('laravel-agegate::content.dd').'</option>';
+				$input .= '<option value="">'.trans('laravel-avp::content.dd').'</option>';
 				foreach (range(1,31) as $num)
 				{
 					$num = str_pad($num, 2, '0', STR_PAD_LEFT);
@@ -75,7 +75,7 @@ Form::macro('agegateselectsdate', function($name, $value = null, $options = arra
 				break;
 			case 'm':
 				$input .= '<select name="' . $name . '_month" class="' . $classPrefix . $name . '-month"'.($options['disabled'] ? ' disabled="disabled"' : '').'>';
-				$input .= '<option value="">'.trans('laravel-agegate::content.mm').'</option>';
+				$input .= '<option value="">'.trans('laravel-avp::content.mm').'</option>';
 				foreach (range(1,12) as $num)
 				{
 					$num = str_pad($num, 2, '0', STR_PAD_LEFT);
@@ -90,7 +90,7 @@ Form::macro('agegateselectsdate', function($name, $value = null, $options = arra
 				break;
 			case 'y':
 				$input .= '<select name="' . $name . '_year" class="' . $classPrefix . $name . '-year"'.($options['disabled'] ? ' disabled="disabled"' : '').'>';
-				$input .= '<option value="">'.trans('laravel-agegate::content.yyyy').'</option>';
+				$input .= '<option value="">'.trans('laravel-avp::content.yyyy').'</option>';
 				$min = 1900;
 				if (array_key_exists('min', $options) && preg_match('/^(\d{4})-\d{2}-\d{2}$/', $options['min'], $matches))
 				{

@@ -1,7 +1,7 @@
 {
-    "name": "fastwebmedia/laravel-agegate",
-    "description": "A Laravel 4 package for adding an agegate to a site",
-    "tags": ["laravel","agegate"],
+    "name": "fastwebmedia/laravel-avp",
+    "description": "A Laravel 4 package for adding an AVP to a site",
+    "tags": ["laravel","avp"],
     "license": "MIT",
     "authors": [
         {
@@ -19,7 +19,7 @@
             "src/controllers"
         ],
         "psr-0": {
-            "FWM\\LaravelAgegate": "src/"
+            "FWM\\LaravelAVP": "src/"
         }
     },
     "minimum-stability": "dev"

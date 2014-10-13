@@ -1,8 +1,8 @@
-<?php namespace FWM\LaravelAgegate;
+<?php namespace FWM\LaravelAVP;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelAgegateServiceProvider extends ServiceProvider {
+class LaravelAVPServiceProvider extends ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.
@@ -18,7 +18,7 @@ class LaravelAgegateServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('fwm/laravel-agegate');
+		$this->package('fastwebmedia/laravel-avp');
 
     	include __DIR__.'/../../filter.php';
     	include __DIR__.'/../../macros.php';
