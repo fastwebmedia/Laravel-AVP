@@ -49,7 +49,7 @@ class AVPController extends \BaseController {
 		}
 
 		$maxDob = Carbon::now()->subYears(\Config::get('laravel-avp::minimum_age'))->addDay()->toDateString();
-		$minDob = Carbon::now()->subYears(\Config::get('laravel-avp::maxmimum_age'))->addDay()->toDateString();
+		$minDob = Carbon::now()->subYears(\Config::get('laravel-avp::maximum_age'))->addDay()->toDateString();
 
 		$validator = \Validator::make(
 		    array('dob' => $dob),
