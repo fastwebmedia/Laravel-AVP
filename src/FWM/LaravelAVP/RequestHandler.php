@@ -20,6 +20,11 @@ class RequestHandler {
         } elseif ($this->request->has('dob_year') && $this->request->has('dob_month') && $this->request->has('dob_day')) { // field name has _year, _month and _day components if input type select
             $dob = $this->request->get('dob_year') . '-' . $this->request->get('dob_month') . '-' . $this->request->get('dob_day');
         }
+
+        // return in an array for validator
+        return [
+            'dob' => $dob
+        ];
     }
 
 } 
