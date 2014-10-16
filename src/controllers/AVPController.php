@@ -1,8 +1,8 @@
 <?php namespace FWM\LaravelAVP;
 
 use Carbon\Carbon as Date;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use FWM\LaravelAVP\RequestHandler;
 use Illuminate\View\Factory as View;
 use Illuminate\Session\Store as Session;
 use Illuminate\Cookie\CookieJar as Cookie;
@@ -21,11 +21,6 @@ class AVPController extends \BaseController {
      * @var Config
      */
     protected $config;
-
-    /**
-     * @var Request
-     */
-    protected $request;
 
     /**
      * @var Lang
@@ -58,35 +53,40 @@ class AVPController extends \BaseController {
     protected $carbon;
 
     /**
+     * @var RequestHandler
+     */
+    protected $handler;
+
+    /**
      * @param Session $session
      * @param Config $config
-     * @param Request $request
      * @param Lang $lang
      * @param Redirector $redirector
      * @param Cookie $cookie
      * @param Validator $validator
      * @param View $view
      * @param Date $carbon
+     * @param RequestHandler $handler
      */
     function __construct(Session $session,
                          Config $config,
-                         Request $request,
                         Lang $lang,
                         Redirector $redirector,
                         Cookie $cookie,
                         Validator $validator,
                         View $view,
-                        Date $carbon)
+                        Date $carbon,
+                        RequestHandler $handler)
     {
         $this->session = $session;
         $this->config = $config;
-        $this->request = $request;
         $this->lang = $lang;
         $this->redirector = $redirector;
         $this->cookie = $cookie;
         $this->validator = $validator;
         $this->view = $view;
         $this->carbon = $carbon;
+        $this->handler = $handler;
     }
 
     /**
@@ -97,7 +97,6 @@ class AVPController extends \BaseController {
 		$previousTooYoung = $this->session->get('laravel-avp.previous_too_young');
 		$view = $this->view->make($this->config->get('laravel-avp::view'))
 			->with(compact('previousTooYoung'));
-		
 
 		if (!$this->session->has('errors') && $previousTooYoung)
 		{
@@ -123,15 +122,7 @@ class AVPController extends \BaseController {
 			return $this->$redirector->action('FWM\LaravelAVP\AVPController@agegate');
 		}
 		// Get the date of birth that the user submitted
-		$dob = null;
-		if ($this->request->has('dob'))
-		{ // field name is dob when using input type date
-			$dob = $this->request->get('dob');
-		}
-		elseif ($this->request->has('dob_year') && $this->request->has('dob_month') && $this->request->has('dob_day'))
-		{ // field name has _year, _month and _day components if input type select
-			$dob = $this->request->get('dob_year').'-'. $this->request->get('dob_month').'-'. $this->request->get('dob_day');
-		}
+        $dob = $this->handler->processDataOfBirth();
 
 		$maxDob = $this->carbon->now()->subYears($this->config->get('laravel-avp::minimum_age'))->addDay()->toDateString();
 		$minDob = $this->carbon->now()->subYears($this->config->get('laravel-avp::maximum_age'))->addDay()->toDateString();
