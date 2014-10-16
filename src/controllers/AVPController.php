@@ -1,20 +1,73 @@
 <?php namespace FWM\LaravelAVP;
 
-use Illuminate\Session\Store as Session;
-use Illuminate\Config\Repository as Config;
-use Illuminate\Http\Request;
-use Illuminate\Translation\Translator as Lang;
-use Illuminate\Routing\Redirector;
-use Illuminate\Cookie\CookieJar as Cookie;
-use Illuminate\Validation\Factory as Validator;
-use Illuminate\View\Factory as View;
 use Carbon\Carbon as Date;
-
+use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\View\Factory as View;
+use Illuminate\Session\Store as Session;
+use Illuminate\Cookie\CookieJar as Cookie;
+use Illuminate\Config\Repository as Config;
+use Illuminate\Translation\Translator as Lang;
+use Illuminate\Validation\Factory as Validator;
 
 class AVPController extends \BaseController {
 
+    /**
+     * @var Session
+     */
     protected $session;
 
+    /**
+     * @var Config
+     */
+    protected $config;
+
+    /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * @var Lang
+     */
+    protected $lang;
+
+    /**
+     * @var Redirector
+     */
+    protected $redirector;
+
+    /**
+     * @var Cookie
+     */
+    protected $cookie;
+
+    /**
+     * @var Validator
+     */
+    protected $validator;
+
+    /**
+     * @var View
+     */
+    protected $view;
+
+    /**
+     * @var Date
+     */
+    protected $carbon;
+
+    /**
+     * @param Session $session
+     * @param Config $config
+     * @param Request $request
+     * @param Lang $lang
+     * @param Redirector $redirector
+     * @param Cookie $cookie
+     * @param Validator $validator
+     * @param View $view
+     * @param Date $carbon
+     */
     function __construct(Session $session,
                          Config $config,
                          Request $request,
@@ -22,7 +75,8 @@ class AVPController extends \BaseController {
                         Redirector $redirector,
                         Cookie $cookie,
                         Validator $validator,
-                        View $view, Date $carbon)
+                        View $view,
+                        Date $carbon)
     {
         $this->session = $session;
         $this->config = $config;
