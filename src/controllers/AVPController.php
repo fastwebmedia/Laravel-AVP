@@ -1,6 +1,5 @@
 <?php namespace FWM\LaravelAVP;
 
-use \Carbon\Carbon;
 use Illuminate\Session\Store as Session;
 use Illuminate\Config\Repository as Config;
 use Illuminate\Http\Request;
