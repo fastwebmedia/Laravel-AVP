@@ -70,6 +70,8 @@ class AVPController extends \BaseController
         $this->view = $view;
         $this->handler = $handler;
         $this->validation = $validation;
+        
+        parent::__construct();
     }
 
     /**
