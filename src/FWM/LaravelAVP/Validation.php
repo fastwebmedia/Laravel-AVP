@@ -96,8 +96,10 @@ class Validation {
 
             $toRedirect = $this->config->get('laravel-avp::redirect_on_error');
             $redirectURL = $this->config->get('laravel-avp::redirect_url');
-
-            if ($validExceptTooYoung && $toRedirect) {
+            
+            if (substr($data['dob'],0, 4) > date('Y') ) {
+		        return $this->redirector->action('FWM\LaravelAVP\AVPController@agegate')->withErrors($this->validation->messages())->withInput();
+	        } else if ($validExceptTooYoung && $toRedirect) {
                 return $this->redirector->to($redirectURL);
             } else if ($validExceptTooYoung && !$canTryAgain) {
                 $this->session->put('laravel-avp.previous_too_young', true);
