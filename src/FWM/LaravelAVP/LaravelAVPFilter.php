@@ -58,11 +58,17 @@ class LaravelAVPFilter {
 		}
 	}
 
+	
 	/**
 	 * @return bool
 	 */
 	public function isAllowed()
 	{
+		if ($this->isAllowedRoute())
+		{
+			return true;
+		}
+		
 		if ($this->isAgeCookieOK())
 		{
 			return true;
@@ -77,6 +83,16 @@ class LaravelAVPFilter {
 		}
 	}
 
+        /**
+	 * @return bool
+	 */
+	public function isAllowedRoute()
+	{
+		$routes = $this->config->get('laravel-avp::allowed_routes');
+		return in_array($this->request->path(), $routes);
+		
+	}
+	
 	/**
 	 * @return bool
 	 */
