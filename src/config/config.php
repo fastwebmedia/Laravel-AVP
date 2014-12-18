@@ -52,6 +52,12 @@ return array(
 	 */
 	'view' => 'laravel-avp::avp',
 
+	'allowed_routes' => array(
+		'privacy-policy',
+		'cookies',
+		'terms'
+	),
+	
 	/**
 	 *
 	 */
