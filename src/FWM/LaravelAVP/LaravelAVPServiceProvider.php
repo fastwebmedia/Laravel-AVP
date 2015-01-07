@@ -20,8 +20,8 @@ class LaravelAVPServiceProvider extends ServiceProvider {
 	{
 		$this->package('fastwebmedia/laravel-avp');
 
-    	include __DIR__.'/LaravelAVPFilter.php';
-    	include __DIR__.'/../../macros.php';
+		include_once __DIR__.'/LaravelAVPFilter.php';
+		include_once __DIR__.'/../../macros.php';
 	}
 
 	/**
