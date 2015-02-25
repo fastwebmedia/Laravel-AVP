@@ -18,7 +18,17 @@ class LaravelAVPServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('fastwebmedia/laravel-avp');
+        $this->publishes([
+            __DIR__ . '/config/laravel-avp.php' => config_path('laravel-avp.php'),
+        ]);
+
+        $this->loadViewsFrom(__DIR__ . '/views', 'laravel-avp');
+
+        $this->publishes([
+            __DIR__ . '/views' => base_path('resources/views/vendor/laravel-avp'),
+        ]);
+
+        $this->loadTranslationsFrom(__DIR__ . '/lang', 'laravel-avp');
 
 		include_once __DIR__.'/LaravelAVPFilter.php';
 		include_once __DIR__.'/../../macros.php';

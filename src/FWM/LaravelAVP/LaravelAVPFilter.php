@@ -1,6 +1,5 @@
 <?php namespace FWM\LaravelAVP;
 
-use Illuminate\Config\Repository as Config;
 use Illuminate\Http\Request;
 use \Illuminate\Session\Store as Session;
 use Illuminate\Routing\Redirector as Redirect;
@@ -17,10 +16,6 @@ class LaravelAVPFilter {
 	 */
 	protected $request;
 
-	/**
-	 * @var Config
-	 */
-	protected $config;
 
 	/**
 	 * @var Session
@@ -34,14 +29,12 @@ class LaravelAVPFilter {
 
 	/**
 	 * @param Request $request
-	 * @param Config $config
 	 * @param Session $session
 	 * @param Redirect $redirect
 	 */
-	public function __construct(Request $request, Config $config, Session $session, Redirect $redirect)
+	public function __construct(Request $request, Session $session, Redirect $redirect)
 	{
 		$this->request = $request;
-		$this->config = $config;
 		$this->session = $session;
 		$this->redirect = $redirect;
 	}
@@ -88,7 +81,7 @@ class LaravelAVPFilter {
 	 */
 	public function isAllowedRoute()
 	{
-		$routes = $this->config->get('laravel-avp::allowed_routes');
+		$routes = config('laravel-avp.allowed_routes');
 		return in_array($this->request->path(), $routes);
 		
 	}
@@ -98,8 +91,8 @@ class LaravelAVPFilter {
 	 */
 	public function isAgeCookieOK()
 	{
-		$cookieVal = $this->request->cookie($this->config->get('laravel-avp::cookie_name'));
-		$whatItShouldBe = $this->config->get('laravel-avp::cookie_val');
+		$cookieVal = $this->request->cookie(config('laravel-avp.cookie_name'));
+		$whatItShouldBe = config('laravel-avp.cookie_val');
 		return $cookieVal == $whatItShouldBe;
 	}
 
@@ -134,7 +127,7 @@ class LaravelAVPFilter {
 	 */
 	public function getAllowedAddresses()
 	{
-		return $this->config->get('laravel-avp::allowed_user_agents.ipv4');
+		return config('laravel-avp.allowed_user_agents.ipv4');
 	}
 
 	/**
@@ -142,7 +135,7 @@ class LaravelAVPFilter {
 	 */
 	public function getAllowedUserAgentStrings()
 	{
-		return $this->config->get('laravel-avp::allowed_user_agents.strings');
+		return config('laravel-avp.allowed_user_agents.strings');
 	}
 
 	/**
@@ -183,7 +176,7 @@ class LaravelAVPFilter {
 	 */
 	public function getAgeGateRedirect()
 	{
-		$url = $this->config->get('laravel-avp::agegate_uri').'?'.$this->request->server('QUERY_STRING');
+		$url = config('laravel-avp.agegate_uri').'?'.$this->request->server('QUERY_STRING');
 	    return $this->redirect->to($url);
 	}
 
