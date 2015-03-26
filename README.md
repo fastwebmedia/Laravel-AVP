@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/fastwebmedia/Laravel-AVP.svg?branch=master)](https://travis-ci.org/fastwebmedia/Laravel-AVP)
+
+
 Laravel-AVP
 ===============
 
