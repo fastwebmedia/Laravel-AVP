@@ -1,16 +1,36 @@
 <?php namespace FWM\LaravelAVP;
 
 use Illuminate\Http\Request;
+use Illuminate\Session\Store as Session;
 
+/**
+ * Class RequestHandler
+ * @package FWM\LaravelAVP
+ */
 class RequestHandler {
 
+    /**
+     * @var Request
+     */
     protected $request;
+    /**
+     * @var Session
+     */
+    protected $session;
 
-    function __construct(Request $request)
+    /**
+     * @param Request $request
+     * @param Session $session
+     */
+    function __construct(Request $request, Session $session)
     {
         $this->request = $request;
+        $this->session = $session;
     }
 
+    /**
+     * @return array
+     */
     public function processDataOfBirth()
     {
         // Get the date of birth that the user submitted
@@ -21,6 +41,17 @@ class RequestHandler {
             $dob = $this->request->get('dob_year') . '-' . $this->request->get('dob_month') . '-' . $this->request->get('dob_day');
         }
 
+        if ( $this->request->get('remember_me') == "on") {
+            $this->session->set('remembered_day', $this->request->get('dob_day'));
+            $this->session->set('remembered_month', $this->request->get('dob_month'));
+            $this->session->set('remembered_year', $this->request->get('dob_year'));
+            $this->session->set('remember_me', "on");
+        } else {
+            $this->session->remove('remembered_day');
+            $this->session->remove('remembered_month');
+            $this->session->remove('remembered_year');
+            $this->session->remove('remember_me');
+        }
         // return in an array for validator
         return [
             'dob' => $dob
