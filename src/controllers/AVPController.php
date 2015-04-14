@@ -69,8 +69,6 @@ class AVPController extends \BaseController
             $messages = $this->lang->get('laravel-avp::validation.custom');
             $errorMsg = $messages['dob.previous'];
             $view->withErrors(['dob' => [$errorMsg]]);
-        } else {
-            $this->session->keep('url.intended');
         }
         return $view;
     }
