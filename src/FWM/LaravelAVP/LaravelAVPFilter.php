@@ -168,7 +168,7 @@ class LaravelAVPFilter {
 	public function rememberDesiredUrl()
 	{
 		$desiredUrl = $this->request->fullUrl();
-		$this->session->flash('url.intended', $desiredUrl);
+		$this->session->put('url.intended', $desiredUrl);
 	}
 
 	/**
