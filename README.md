@@ -4,7 +4,7 @@
 Laravel-AVP
 ===============
 
-A Laravel 4 package for adding an age gate to a site
+A Laravel 5 package for adding an age gate to a site
 
 ## Features
 
