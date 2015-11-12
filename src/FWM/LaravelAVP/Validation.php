@@ -134,6 +134,5 @@ class Validation {
         }
 
         return redirect()->intended('/')->withCookie($cookie);
-        return redirect()->intended('/')->withCookie($cookie);
     }
 }
