@@ -41,11 +41,13 @@ class RequestHandler {
             $dob = $this->request->get('dob_year') . '-' . $this->request->get('dob_month') . '-' . $this->request->get('dob_day');
         }
 
+	$remember_me = false;
         if ( $this->request->get('remember_me') == "on") {
             $this->session->set('remembered_day', $this->request->get('dob_day'));
             $this->session->set('remembered_month', $this->request->get('dob_month'));
             $this->session->set('remembered_year', $this->request->get('dob_year'));
             $this->session->set('remember_me', "on");
+	    $remember_me = true;
         } else {
             $this->session->remove('remembered_day');
             $this->session->remove('remembered_month');
@@ -54,7 +56,8 @@ class RequestHandler {
         }
         // return in an array for validator
         return [
-            'dob' => $dob
+            'dob' => $dob,
+            'remember' => $remember_me
         ];
     }
 

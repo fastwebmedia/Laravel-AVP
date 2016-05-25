@@ -87,7 +87,7 @@ class Validation {
             return redirect()->action('AVPController@agegate')->withErrors($this->validation->messages())->withInput();
         }
 
-        return $this->setCookie();
+        return $this->setCookie($data['remember_me']);
 
     }
 
@@ -115,13 +115,16 @@ class Validation {
      *
      * @return $this
      */
-    protected function setCookie()
+    protected function setCookie($remember_me = false)
     {
         if (config('laravel-avp.cookie_age') == 'forever') {
             // Set a forever cookie saying the user is old enough
             $cookie = $this->cookie->forever(config('laravel-avp.cookie_name'),
                 config('laravel-avp.cookie_val'));
-        } elseif (is_int(config('laravel-avp.cookie_age'))) {
+        } elseif($remember) {
+		// Remember for 30 days
+	    $this->cookie->make(config('laravel-avp.cookie_name'), config('laravel-avp.cookie_val'), 3600 * 24 * 30);
+	} elseif (is_int(config('laravel-avp.cookie_age'))) {
             // Sets a cookie lasting X minutes saying the user is old enough
 
             $this->cookie->make(config('laravel-avp.cookie_name'),
