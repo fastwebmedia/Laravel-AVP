@@ -121,7 +121,7 @@ class Validation {
             // Set a forever cookie saying the user is old enough
             $cookie = $this->cookie->forever(config('laravel-avp.cookie_name'),
                 config('laravel-avp.cookie_val'));
-        } elseif($remember) {
+        } elseif($remember_me) {
 		// Remember for 30 days
 	    $this->cookie->make(config('laravel-avp.cookie_name'), config('laravel-avp.cookie_val'), 3600 * 24 * 30);
 	} elseif (is_int(config('laravel-avp.cookie_age'))) {
