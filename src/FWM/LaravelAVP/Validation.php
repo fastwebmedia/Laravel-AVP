@@ -123,7 +123,7 @@ class Validation {
                 config('laravel-avp.cookie_val'));
         } elseif($remember_me) {
 		// Remember for 30 days
-	    $cookie = $this->cookie->make(config('laravel-avp.cookie_name'), config('laravel-avp.cookie_val'), 3600 * 24 * 30);
+	    $cookie = $this->cookie->make(config('laravel-avp.cookie_name'), config('laravel-avp.cookie_val'), 60 * 24 * 30);
 	} elseif (is_int(config('laravel-avp.cookie_age'))) {
             // Sets a cookie lasting X minutes saying the user is old enough
             $cookie = $this->cookie->make(config('laravel-avp.cookie_name'),
