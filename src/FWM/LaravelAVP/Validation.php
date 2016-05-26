@@ -87,7 +87,7 @@ class Validation {
             return redirect()->action('AVPController@agegate')->withErrors($this->validation->messages())->withInput();
         }
 
-        return $this->setCookie($data['remember_me']);
+        return $this->setCookie($data['remember']);
 
     }
 
